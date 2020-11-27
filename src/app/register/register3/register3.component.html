@@ -36,7 +36,11 @@
                     alt="img description"
                   />
                 </figure>
-                <form class="wt-formtheme wt-verifyform">
+                <form
+                  [formGroup]="stageThreeForm"
+                  (ngSubmit)="verify(stageThreeForm)"
+                  class="wt-formtheme wt-verifyform"
+                >
                   <fieldset>
                     <div class="form-group">
                       <label
@@ -48,18 +52,14 @@
                       >
                       <input
                         type="text"
-                        name="code"
+                        name="otp"
                         class="form-control"
                         placeholder="Enter Verification Code"
+                        formControlName="otp"
                       />
                     </div>
                     <div class="form-group wt-btnarea">
-                      <a
-                        [routerLink]="['../step-4']"
-                        routerLinkActive="router-link-active"
-                        class="wt-btn"
-                        >Verify now</a
-                      >
+                      <button type="submit" class="wt-btn">Verify now</button>
                     </div>
                   </fieldset>
                 </form>

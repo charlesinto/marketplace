@@ -8,11 +8,14 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Register3Component } from './register3.component';
+import { UtilService } from '../../services/util.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Step3GuardGuard implements CanActivate, CanDeactivate<unknown> {
+  constructor(private util: UtilService, private router: Router) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,7 +24,17 @@ export class Step3GuardGuard implements CanActivate, CanDeactivate<unknown> {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return true;
+    if (
+      !(
+        this.util.getFromLocalStorage('stage') &&
+        this.util.getFromLocalStorage('stage') === 'stage-three'
+      )
+    ) {
+      this.router.navigate(['/register/step-2']);
+      return false;
+    } else {
+      return true;
+    }
   }
   canDeactivate(
     component: Register3Component,

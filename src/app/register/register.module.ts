@@ -7,13 +7,29 @@ import { RegistertwoComponent } from './registertwo/registertwo.component';
 import { RegisteroneComponent } from './registerone/registerone.component';
 import { Register3Component } from './register3/register3.component';
 import { Register4Component } from './register4/register4.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { UtilService } from '../services/util.service';
+import { ProfileComponent } from './profile/profile.component';
+// import { FooterComponent } from '../footer/footer.component';
 
 @NgModule({
-  declarations: [RegisterComponent, RegistertwoComponent, RegisteroneComponent, Register3Component, Register4Component],
+  declarations: [
+    RegisterComponent,
+    RegistertwoComponent,
+    RegisteroneComponent,
+    Register3Component,
+    Register4Component,
+    ProfileComponent,
+    // FooterComponent,
+  ],
+
   imports: [
     CommonModule,
-    RegisterRoutingModule
-  ]
+    RegisterRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  providers: [UtilService],
 })
-export class RegisterModule { }
+export class RegisterModule {}

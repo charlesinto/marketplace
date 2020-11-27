@@ -170,7 +170,11 @@
                         <a href="javascript:;" class="wt-forgot-password"
                           >Forgot password?</a
                         >
-                        <a href="register.html">Create account</a>
+                        <a
+                          [routerLink]="['/register']"
+                          routerLinkActive="router-link-active"
+                          >Create account</a
+                        >
                       </div>
                     </form>
                     <form
@@ -201,7 +205,12 @@
                     </form>
                   </div>
                 </div>
-                <a href="register.html" class="wt-btn">Join Now</a>
+                <a
+                  [routerLink]="['/register']"
+                  routerLinkActive="router-link-active"
+                  class="wt-btn"
+                  >Join Now</a
+                >
               </div>
               <div class="wt-userlogedin">
                 <figure class="wt-userimg">
