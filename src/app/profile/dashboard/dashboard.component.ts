@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { JQ_TOKEN } from '../../services/jquery.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,13 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
+  constructor(@Inject(JQ_TOKEN) private $: any) {}
 
-  ngOnInit(): void {
-    const menu_icon = document.querySelector('.menu-icon');
-    function addClassFunThree() {
-      this.classList.toggle('click-menu-icon');
-    }
-    menu_icon.addEventListener('click', addClassFunThree);
-  }
+  ngOnInit(): void {}
 }

@@ -83,7 +83,12 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
-            "styles": ["src/styles.scss", "src/assets/css"],
+            "styles": [
+              "src/styles.scss",
+              "src/assets/css",
+              "node_modules/select2/dist/css/select2.min.css",
+              "node_modules/select2/dist/js/select2.min.js"
+            ],
             "scripts": ["src/assets/js"]
           }
         },

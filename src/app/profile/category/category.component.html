@@ -1,0 +1,177 @@
+<section class="wt-haslayout wt-dbsectionspace">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4 float-left">
+      <div class="wt-dashboardbox">
+        <div class="wt-dashboardboxtitle">
+          <h2>Add New Category</h2>
+        </div>
+        <div class="wt-dashboardboxcontent">
+          <form
+            (ngSubmit)="createCategory()"
+            class="wt-formtheme wt-formprojectinfo wt-formcategory"
+            [formGroup]="form"
+          >
+            <fieldset>
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  placeholder="Name"
+                  formControlName="name"
+                />
+                <span class="form-group-description"
+                  >Dolore magna aliqua enim adminim</span
+                >
+              </div>
+              <!-- <div class="form-group">
+                <span class="wt-select">
+                  <select>
+                    <option value="" disabled="">Select parent Category</option>
+                    <option value="">Category 1</option>
+                    <option value="">Category 2</option>
+                  </select>
+                </span>
+                <span class="form-group-description"
+                  >Elit sed do eiusmod tempor incididunt ut labore</span
+                >
+              </div> -->
+              <div class="form-group">
+                <textarea
+                  name="description"
+                  class="form-control"
+                  placeholder="Description"
+                  formControlName="description"
+                ></textarea>
+                <span class="form-group-description"
+                  >Veniam quis nostrud exercitation</span
+                >
+              </div>
+              <div class="form-group form-group-label">
+                <div class="wt-labelgroup">
+                  <label for="file">
+                    <span class="wt-btn">Select Files</span>
+                    <input type="file" name="file" id="file" />
+                  </label>
+                  <span>Drop files here to upload</span>
+                  <em class="wt-fileuploading"
+                    >Uploading<i class="fa fa-spinner fa-spin"></i
+                  ></em>
+                </div>
+              </div>
+              <div class="form-group">
+                <ul class="wt-attachfile">
+                  <li class="wt-uploading">
+                    <span class="uploadprogressbar"></span>
+                    <span>Category Icon.jpg</span>
+                    <em
+                      >File size: 300 kb<a
+                        href="javascript:void(0);"
+                        class="lnr lnr-cross"
+                      ></a
+                    ></em>
+                  </li>
+                </ul>
+              </div>
+              <div class="form-group wt-btnarea">
+                <button type="submit" class="wt-btn">Add New Category</button>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-8 float-right">
+      <div class="wt-dashboardbox wt-categorys">
+        <div class="wt-dashboardboxtitle wt-titlewithsearch">
+          <h2>Category</h2>
+          <form class="wt-formtheme wt-formsearch">
+            <fieldset>
+              <div class="form-group">
+                <input
+                  type="text"
+                  name="category"
+                  class="form-control"
+                  placeholder="Search Category"
+                />
+                <a href="javascrip:void(0);" class="wt-searchgbtn"
+                  ><i class="lnr lnr-magnifier"></i
+                ></a>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+        <div class="wt-dashboardboxcontent wt-categoriescontentholder">
+          <table class="wt-tablecategories">
+            <thead>
+              <tr>
+                <th>
+                  <span class="wt-checkbox">
+                    <input id="wt-name" type="checkbox" name="head" />
+                    <label for="wt-name"></label>
+                  </span>
+                </th>
+                <th>Icon</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let category of categories">
+                <td>
+                  <span class="wt-checkbox">
+                    <input id="{{ category.id }}" type="checkbox" name="head" />
+                    <label for="{{ category.id }}"></label>
+                  </span>
+                </td>
+                <td>
+                  <figure>
+                    <img
+                      src="assets/images/categories/img-09.png"
+                      alt="img description"
+                    />
+                  </figure>
+                </td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.description }}</td>
+                <td>
+                  <div class="wt-actionbtn">
+                    <a
+                      href="javascript:void(0);"
+                      class="wt-addinfo wt-skillsaddinfo"
+                      ><i class="lnr lnr-pencil"></i
+                    ></a>
+                    <a href="javascript:void(0);" class="wt-deleteinfo"
+                      ><i class="lnr lnr-trash"></i
+                    ></a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <nav class="wt-pagination">
+            <ul>
+              <li class="wt-prevpage">
+                <a href="javascrip:void(0);"
+                  ><i class="lnr lnr-chevron-left"></i
+                ></a>
+              </li>
+              <li><a href="javascrip:void(0);">1</a></li>
+              <li><a href="javascrip:void(0);">2</a></li>
+              <li><a href="javascrip:void(0);">3</a></li>
+              <li><a href="javascrip:void(0);">4</a></li>
+              <li><a href="javascrip:void(0);">...</a></li>
+              <li><a href="javascrip:void(0);">50</a></li>
+              <li class="wt-nextpage">
+                <a href="javascrip:void(0);"
+                  ><i class="lnr lnr-chevron-right"></i
+                ></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

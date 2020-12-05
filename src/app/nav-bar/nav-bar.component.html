@@ -117,7 +117,7 @@
                   </ul>
                 </div>
               </nav>
-              <div class="wt-loginarea">
+              <div *ngIf="!user" class="wt-loginarea">
                 <figure class="wt-userimg">
                   <img
                     src="assets/images/user-login.png"
@@ -125,20 +125,30 @@
                   />
                 </figure>
                 <div class="wt-loginoption">
-                  <a id="wt-loginbtn" class="wt-loginbtn">Login</a>
+                  <a
+                    id="wt-loginbtn"
+                    style="cursor: pointer"
+                    class="wt-loginbtn"
+                    >Login</a
+                  >
                   <div class="wt-loginformhold">
                     <div class="wt-loginheader">
                       <span>Login</span>
                       <a href="javascript:;"><i class="fa fa-times"></i></a>
                     </div>
-                    <form class="wt-formtheme wt-loginform do-login-form">
+                    <form
+                      [formGroup]="loginForm"
+                      (ngSubmit)="login(loginForm)"
+                      class="wt-formtheme wt-loginform do-login-form"
+                    >
                       <fieldset>
                         <div class="form-group">
                           <input
                             type="text"
-                            name="username"
+                            name="email"
                             class="form-control"
-                            placeholder="Username"
+                            placeholder="Email Address"
+                            formControlName="email"
                           />
                         </div>
                         <div class="form-group">
@@ -147,15 +157,17 @@
                             name="password"
                             class="form-control"
                             placeholder="Password"
+                            formControlName="password"
                           />
                         </div>
                         <div class="wt-logininfo">
-                          <a
-                            href="javascript:;"
+                          <button
+                            type="submit"
                             style="cursor: pointer"
                             class="wt-btn do-login-button"
-                            >Login</a
                           >
+                            Login
+                          </button>
                           <span class="wt-checkbox">
                             <input
                               id="wt-login"
@@ -212,7 +224,11 @@
                   >Join Now</a
                 >
               </div>
-              <div class="wt-userlogedin">
+              <div
+                *ngIf="user !== null"
+                class="wt-userlogedin"
+                style="display: block"
+              >
                 <figure class="wt-userimg">
                   <img
                     src="assets/images/user-img.jpg"
@@ -220,8 +236,8 @@
                   />
                 </figure>
                 <div class="wt-username">
-                  <h3>Louanne Mattioli</h3>
-                  <span>Amento Tech</span>
+                  <h3>{{ user.firstName }} {{ user.lastName }}</h3>
+                  <span>{{ user.type }}</span>
                 </div>
                 <nav class="wt-usernav">
                   <ul>
@@ -239,7 +255,12 @@
                       </ul>
                     </li>
                     <li>
-                      <a href="dashboard-profile.html">
+                      <a
+                        [routerLink]="['/profile']"
+                        routerLinkActive="router-link-active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        href="dashboard-profile.html"
+                      >
                         <span>My Profile</span>
                       </a>
                     </li>
@@ -303,7 +324,11 @@
                       </a>
                     </li>
                     <li>
-                      <a href="dashboard-proposals.html">
+                      <a
+                        [routerLink]="['/profile/proposals']"
+                        routerLinkActive="router-link-active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                      >
                         <span>Proposals</span>
                       </a>
                     </li>
@@ -318,7 +343,7 @@
                       </a>
                     </li>
                     <li>
-                      <a href="index.html">
+                      <a (click)="logout()" href="javascript:void(0);">
                         <span>Logout</span>
                       </a>
                     </li>

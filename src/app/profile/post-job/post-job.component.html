@@ -1,0 +1,257 @@
+<section class="wt-haslayout wt-dbsectionspace">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 float-left">
+      <div class="wt-dashboardbox">
+        <div class="wt-dashboardboxtitle">
+          <h2>Post a Job</h2>
+        </div>
+        <div class="wt-dashboardboxcontent">
+          <div class="wt-jobdescription wt-tabsinfo">
+            <div class="wt-tabscontenttitle">
+              <h2>Job Description</h2>
+            </div>
+            <form
+              [formGroup]="jobForm"
+              class="wt-formtheme wt-userform wt-userformvtwo"
+            >
+              <fieldset>
+                <div class="form-group">
+                  <input
+                    type="text"
+                    name="title"
+                    formControlName="title"
+                    class="form-control"
+                    placeholder="Job Title"
+                  />
+                </div>
+                <div class="form-group form-group-half wt-formwithlabel">
+                  <span class="wt-select">
+                    <label for="selectoption">Service Level:</label>
+                    <select name="serviceLevel" formControlName="serviceLevel">
+                      <option value="">Professional</option>
+                      <option value="">Professional</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="form-group form-group-half wt-formwithlabel">
+                  <span class="wt-select">
+                    <label for="selectoption">Job Type:</label>
+                    <select name="type" formControlName="type">
+                      <option value="">Fixed</option>
+                      <option value="">Fixed</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="form-group form-group-half wt-formwithlabel">
+                  <span class="wt-select">
+                    <label for="selectoption">Job Duration:</label>
+                    <select name="duration" formControlName="duration">
+                      <option value="">02 Weeks</option>
+                      <option value="">03 Weeks</option>
+                    </select>
+                  </span>
+                </div>
+                <div class="form-group form-group-half wt-formwithlabel">
+                  <span class="wt-select">
+                    <label for="selectoption">Featured Job:</label>
+                    <select
+                      name="featured"
+                      formControlName="featured"
+                      id="selectoption"
+                    >
+                      <option value="">Yes</option>
+                      <option value="">No</option>
+                    </select>
+                  </span>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="wt-jobdescription wt-tabsinfo">
+            <div class="wt-tabscontenttitle">
+              <h2>Job Category</h2>
+            </div>
+            <form
+              [formGroup]="jobForm"
+              class="wt-formtheme wt-userform wt-userformvtwo"
+            >
+              <fieldset>
+                <div class="form-group wt-formwithlabel">
+                  <select
+                    name="categoryId"
+                    formControlName="categoryId"
+                    class="w-100"
+                  >
+                    <option value="">Select</option>
+                    <option
+                      *ngFor="let category of categories"
+                      value="{{ category.id }}"
+                    >
+                      {{ category.name }}
+                    </option>
+                  </select>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+
+          <div class="wt-jobdetails wt-tabsinfo">
+            <div class="wt-tabscontenttitle">
+              <h2>Job Details</h2>
+            </div>
+            <form
+              [formGroup]="jobForm"
+              class="wt-formtheme wt-userform wt-userformvtwo"
+            >
+              <fieldset>
+                <div class="form-group">
+                  <textarea
+                    name="details"
+                    formControlName="details"
+                    id="wt-tinymceeditor"
+                    class="wt-tinymceeditor w-100"
+                    placeholder="Add Job Detail Here"
+                  ></textarea>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="wt-jobskills wt-tabsinfo">
+            <div class="wt-tabscontenttitle">
+              <h2>Skills Required</h2>
+            </div>
+            <form class="wt-formtheme wt-userform wt-userformvtwo">
+              <fieldset>
+                <div class="form-group">
+                  <select
+                    class="chosen-select Skills"
+                    data-placeholder="Skills"
+                    id="select"
+                    name="Skills"
+                    [(ngModel)]="selectedSkill"
+                  >
+                    <option
+                      *ngFor="let skill of skills"
+                      value="{{ skill.value }}"
+                    >
+                      {{ skill.name }}
+                    </option>
+                  </select>
+                </div>
+                <div class="form-group wt-btnarea">
+                  <a
+                    href="javascript:void(0);"
+                    (click)="onAddSkillSelect()"
+                    class="wt-btn"
+                    >Add Skills</a
+                  >
+                </div>
+                <div class="form-group wt-myskills">
+                  <ul class="">
+                    <li *ngFor="let skill of userSkills">
+                      <div class="wt-dragdroptool">
+                        <a href="javascript:void(0)" class="lnr lnr-menu"></a>
+                      </div>
+                      <span class="skill-dynamic-html"
+                        >{{ skill }} (<em class="skill-val">90</em>%)</span
+                      >
+                      <span class="skill-dynamic-field">
+                        <input
+                          type="text"
+                          name="skills[1][percentage]"
+                          value="90"
+                        />
+                      </span>
+                      <div class="wt-rightarea">
+                        <a
+                          (click)="removeSkill(skill)"
+                          href="javascript:void(0);"
+                          class="wt-deleteinfo"
+                          ><i class="lnr lnr-trash"></i
+                        ></a>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <div class="wt-attachmentsholder">
+            <div class="wt-tabscontenttitle">
+              <h2>Attachments</h2>
+              <div class="wt-rightarea">
+                <span>Show “Attachments” after hiring</span>
+                <div class="wt-on-off float-right">
+                  <input
+                    type="checkbox"
+                    (change)="toggleEditable($event)"
+                    id="hide-on"
+                    name="contact_form"
+                  />
+                  <label for="hide-on"><i></i></label>
+                </div>
+              </div>
+            </div>
+            <form class="wt-formtheme wt-formprojectinfo wt-formcategory">
+              <fieldset>
+                <div class="form-group form-group-label">
+                  <div class="wt-labelgroup">
+                    <label for="file">
+                      <span class="wt-btn">Select Files</span>
+                      <input type="file" name="file" id="file" />
+                    </label>
+                    <span>Drop files here to upload</span>
+                    <em class="wt-fileuploading"
+                      >Uploading<i class="fa fa-spinner fa-spin"></i
+                    ></em>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <ul class="wt-attachfile">
+                    <li class="wt-uploading">
+                      <span class="uploadprogressbar"></span>
+                      <span>Wireframe Document.doc</span>
+                      <em
+                        >File size: 512 kb<a
+                          href="javascript:void(0);"
+                          class="lnr lnr-cross"
+                        ></a
+                      ></em>
+                    </li>
+                    <li>
+                      <span class="uploadprogressbar"></span>
+                      <span>Requirments.pdf</span>
+                      <em
+                        >File size: 110 kb<a
+                          href="javascript:void(0);"
+                          class="lnr lnr-cross"
+                        ></a
+                      ></em>
+                    </li>
+                    <li class="wt-uploaded">
+                      <span class="uploadprogressbar"></span>
+                      <span>Company Intro.docx</span>
+                      <em
+                        >File size: 224 kb<a
+                          href="javascript:void(0);"
+                          class="lnr lnr-cross"
+                        ></a
+                      ></em>
+                    </li>
+                  </ul>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="wt-updatall">
+        <i class="ti-announcement"></i>
+        <span>Post job by just clicking on “Post Job Now” button.</span>
+        <a (click)="postJob()" class="wt-btn" href="javascript:void(0);"
+          >Post Job Now</a
+        >
+      </div>
+    </div>
+  </div>
+</section>

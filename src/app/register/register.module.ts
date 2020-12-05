@@ -9,7 +9,7 @@ import { Register3Component } from './register3/register3.component';
 import { Register4Component } from './register4/register4.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { UtilService } from '../services/util.service';
+// import { UtilService } from '../services/util.service';
 import { ProfileComponent } from './profile/profile.component';
 // import { FooterComponent } from '../footer/footer.component';
 
@@ -30,6 +30,6 @@ import { ProfileComponent } from './profile/profile.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [UtilService],
+  providers: [],
 })
 export class RegisterModule {}

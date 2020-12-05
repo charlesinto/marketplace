@@ -21,18 +21,27 @@ export class Register3Component implements OnInit {
     try {
       if (form.valid) {
         const user: User = JSON.parse(this.util.getFromLocalStorage('user'));
+        this.util.isLoading();
         this.util
           .verifyOtp({ email: user.email, otp: form.value['otp'] })
-          .subscribe((data) => {
-            console.log(data);
-            user.verifed_at = data.user.verifed_at;
+          .subscribe(
+            (data) => {
+              this.util.stopLoading();
+              console.log(data);
+              user.verifed_at = data.user.verifed_at;
 
-            const token = data.token;
-            localStorage.removeItem('stage');
-            this.util.setLocalStorage(JSON.stringify(user), 'user');
-            this.util.setLocalStorage(token, 'token');
-            this.router.navigate(['/register/step-4']);
-          });
+              const token = data.token;
+              localStorage.removeItem('stage');
+              this.util.setLocalStorage(JSON.stringify(user), 'user');
+              this.util.setLocalStorage(token, 'token');
+              this.util.updateCurrentUser();
+              this.router.navigate(['/register/step-4']);
+            },
+            (error) => {
+              this.util.stopLoading();
+              console.error(error);
+            }
+          );
       }
     } catch (error) {
       console.log('error: ', error);

@@ -17,6 +17,7 @@ const routes: Routes = [
   },
   { path: 'register', loadChildren: () => import('./register/register.module').then(m => m.RegisterModule) },
   { path: 'profile', loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule) },
+  { path: 'job', loadChildren: () => import('./job/job.module').then(m => m.JobModule) },
   {
     path: '**',
     component: Page404Component,

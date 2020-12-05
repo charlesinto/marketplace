@@ -1,0 +1,262 @@
+<!--Register Form Start-->
+<section class="wt-haslayout wt-dbsectionspace wt-proposals">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-9">
+      <div class="wt-dashboardbox">
+        <div class="wt-dashboardboxtitle">
+          <h2>Manage Jobs</h2>
+        </div>
+        <div
+          *ngFor="let job of jobList"
+          class="wt-dashboardboxcontent wt-rcvproposala"
+        >
+          <div class="wt-userlistinghold wt-featured wt-userlistingvtwo">
+            <span class="wt-featuredtag wt-featuredtagcolor3"
+              ><img
+                src="assets/images/featured.png"
+                alt="img description"
+                data-tipso="Plus Member"
+                class="template-content tipso_style mCS_img_loaded"
+            /></span>
+            <div class="wt-userlistingcontent">
+              <div class="wt-contenthead">
+                <div class="wt-title">
+                  <a href="usersingle.html"
+                    ><i class="fa fa-check-circle"></i> Terrence Tynan
+                  </a>
+                  <h2>{{ job.title }}</h2>
+                </div>
+                <ul class="wt-saveitem-breadcrumb wt-userlisting-breadcrumb">
+                  <li>
+                    <span class="wt-dashboraddoller"
+                      ><i class="fa fa-dollar-sign"></i>
+                      {{ job.serviceLevel }}</span
+                    >
+                  </li>
+                  <li>
+                    <span
+                      ><img
+                        src="assets/images/flag/img-04.png"
+                        alt="img description"
+                        class="mCS_img_loaded"
+                      />
+                      Nigeria</span
+                    >
+                  </li>
+                  <li>
+                    <a href="javascript:void(0);" class="wt-clicksavefolder"
+                      ><i class="far fa-folder"></i> Type: {{ job.type }}</a
+                    >
+                  </li>
+                  <li>
+                    <span class="wt-dashboradclock"
+                      ><i class="far fa-clock"></i> Duration:
+                      {{ job.duration }}</span
+                    >
+                  </li>
+                </ul>
+              </div>
+              <div class="wt-rightarea">
+                <div class="wt-hireduserstatus">
+                  <h4>{{ job.proposals.length }}</h4>
+                  <span>Proposals Received</span>
+                  <ul class="wt-hireduserimgs">
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-02.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-03.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-01.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-02.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-05.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                    <li>
+                      <figure>
+                        <img
+                          src="assets/images/user/userlisting/img-01.jpg"
+                          alt="img description"
+                          class="mCS_img_loaded"
+                        />
+                      </figure>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wt-freelancerholder wt-rcvproposalholder">
+            <div class="wt-tabscontenttitle">
+              <h2>Received Proposals</h2>
+            </div>
+            <div class="wt-managejobcontent">
+              <div
+                *ngFor="let proposal of job.proposals"
+                class="wt-userlistinghold wt-featured wt-proposalitem"
+              >
+                <span class="wt-featuredtag"
+                  ><img
+                    src="assets/images/featured.png"
+                    alt="img description"
+                    data-tipso="Plus Member"
+                    class="template-content tipso_style mCS_img_loaded"
+                /></span>
+                <figure class="wt-userlistingimg">
+                  <img
+                    src="assets/images/user/userlisting/img-01.jpg"
+                    alt="image description"
+                    class="mCS_img_loaded"
+                  />
+                </figure>
+                <div class="wt-proposaldetails">
+                  <div class="wt-contenthead">
+                    <div class="wt-title">
+                      <a href="usersingle.html">
+                        {{ proposal.onwerfirstname }}
+                        {{ proposal.ownerlastname }}</a
+                      >
+                    </div>
+                  </div>
+                  <div class="wt-proposalfeedback">
+                    <span class="wt-starsvtwo">
+                      <i class="fa fa-star fill"></i>
+                    </span>
+                    <span class="wt-starcontent">
+                      4.5/<i>5</i> <em> (860 Feedback)</em></span
+                    >
+                  </div>
+                </div>
+                <div class="wt-rightarea">
+                  <div class="wt-btnarea">
+                    <button
+                      (click)="acceptProposal(job, proposal)"
+                      class="wt-btn"
+                      [disabled]="
+                        proposal.status === 'Submitted' ? false : true
+                      "
+                    >
+                      {{
+                        proposal.status === "Submitted" ? "Hire Now" : "Hired"
+                      }}
+                    </button>
+                  </div>
+                  <div class="wt-hireduserstatus">
+                    <h5>&#36; {{ proposal.proposedamount }}</h5>
+                    <span>In 02 Months</span>
+                  </div>
+                  <div class="wt-hireduserstatus">
+                    <i class="far fa-envelope"></i>
+                    <span>Cover Letter</span>
+                  </div>
+                  <div class="wt-hireduserstatus">
+                    <i class="fa fa-paperclip"></i>
+                    <span>03 file attached</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <nav class="wt-pagination wt-savepagination">
+          <ul>
+            <li class="wt-prevpage">
+              <a href="javascrip:void(0);"
+                ><i class="lnr lnr-chevron-left"></i
+              ></a>
+            </li>
+            <li><a href="javascrip:void(0);">1</a></li>
+            <li><a href="javascrip:void(0);">2</a></li>
+            <li><a href="javascrip:void(0);">3</a></li>
+            <li><a href="javascrip:void(0);">4</a></li>
+            <li><a href="javascrip:void(0);">...</a></li>
+            <li><a href="javascrip:void(0);">50</a></li>
+            <li class="wt-nextpage">
+              <a href="javascrip:void(0);"
+                ><i class="lnr lnr-chevron-right"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-5 col-xl-3">
+      <aside id="wt-sidebar" class="wt-sidebar wt-dashboardsave">
+        <div class="wt-proposalsr">
+          <div class="wt-proposalsrcontent">
+            <figure>
+              <img src="assets/images/thumbnail/img-17.png" alt="image" />
+            </figure>
+            <div class="wt-title">
+              <h3>150</h3>
+              <span>Total Ongoing Jobs</span>
+            </div>
+          </div>
+        </div>
+        <div class="wt-proposalsr">
+          <div class="wt-proposalsrcontent wt-componyfolow">
+            <figure>
+              <img src="assets/images/thumbnail/img-16.png" alt="image" />
+            </figure>
+            <div class="wt-title">
+              <h3>1406</h3>
+              <span>Total Completed Jobs</span>
+            </div>
+          </div>
+        </div>
+        <div class="wt-proposalsr">
+          <div class="wt-proposalsrcontent wt-freelancelike">
+            <figure>
+              <img src="assets/images/thumbnail/img-15.png" alt="image" />
+            </figure>
+            <div class="wt-title">
+              <h3>2075</h3>
+              <span>Total Cancelled Jobs</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+      <div class="wt-companyad">
+        <figure class="wt-companyadimg">
+          <img src="assets/images/add-img.jpg" alt="img description" />
+        </figure>
+        <span>Advertisement 255px X 255px</span>
+      </div>
+    </div>
+  </div>
+</section>
+<!--Register Form End-->

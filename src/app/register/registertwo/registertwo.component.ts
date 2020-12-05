@@ -23,6 +23,7 @@ export class RegistertwoComponent implements OnInit {
   ngOnInit(): void {}
   async continue(form: FormGroup) {
     console.log(form.value);
+
     if (form.invalid) return alert('fill all fields');
 
     if (form.value['password'] !== form.value['retypePassword'])
@@ -35,12 +36,19 @@ export class RegistertwoComponent implements OnInit {
     this.util.setLocalStorage('stage-three', 'stage');
     this.util.setLocalStorage(JSON.stringify(user), 'user');
     try {
-      console.log(user);
-      this.util.registerAccount(user).subscribe((data) => {
-        console.log(data);
-        alert('success');
-        this.router.navigate(['/register/step-3']);
-      });
+      // console.log(user);
+      this.util.isLoading();
+      this.util.registerAccount(user).subscribe(
+        (data) => {
+          console.log(data);
+          this.util.stopLoading();
+          this.router.navigate(['/register/step-3']);
+        },
+        (err) => {
+          this.util.stopLoading();
+          console.error(err);
+        }
+      );
     } catch (error) {
       console.log(error);
       alert('some errors were encountered');

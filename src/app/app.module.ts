@@ -12,6 +12,14 @@ import { Page404Component } from './page404/page404.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SimpleLoaderComponent } from './simple-loader/simple-loader.component';
+
+import { JQ_TOKEN } from './services/jquery.service';
+import { UtilService } from './services/util.service';
+import { JobDetailResolver } from './resolvers/job-detail.resolver';
+// import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
+let jQuery = window['$'];
 
 @NgModule({
   declarations: [
@@ -21,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     Page404Component,
     FooterComponent,
     LoginComponent,
+    SimpleLoaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,9 +37,14 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    // NgMultiSelectDropDownModule.forRoot(),
   ],
 
-  providers: [],
+  providers: [
+    UtilService,
+    { provide: JQ_TOKEN, useValue: jQuery },
+    JobDetailResolver,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
