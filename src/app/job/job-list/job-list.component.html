@@ -36,9 +36,10 @@
                             type="text"
                             name="Search"
                             class="form-control"
+                            [(ngModel)]="catgeoyName"
                             placeholder="Search Category"
                           />
-                          <a href="javascrip:void(0);" class="wt-searchgbtn"
+                          <a (click)="filterByCategory()" class="wt-searchgbtn"
                             ><i class="lnr lnr-magnifier"></i
                           ></a>
                         </div>
@@ -531,11 +532,11 @@
               class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-8 float-left"
             >
               <div class="wt-userlistingholder wt-haslayout">
-                <div class="wt-userlistingtitle">
+                <!-- <div class="wt-userlistingtitle">
                   <span
                     >01 - 48 of 57143 results for <em>"PHP Developer"</em></span
                   >
-                </div>
+                </div> -->
                 <div class="wt-filterholder">
                   <ul class="wt-filtertag">
                     <li class="wt-filtertagclear">

@@ -87,9 +87,16 @@
               "src/styles.scss",
               "src/assets/css",
               "node_modules/select2/dist/css/select2.min.css",
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/select2/dist/js/select2.min.js",
+              "node_modules/tinymce/skins/lightgray/skin.min.css",
+              "node_modules/tinymce/skins/lightgray/content.min.css",
+              "node_modules/tinymce/skins/lightgray/content.inline.min.css"
             ],
-            "scripts": ["src/assets/js"]
+            "scripts": [
+              "src/assets/js",
+              "node_modules/tinymce/tinymce.min.js",
+              "node_modules/tinymce/themes/modern/theme.js"
+            ]
           }
         },
         "lint": {

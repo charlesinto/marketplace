@@ -6,18 +6,27 @@ import {
   HttpHeaders,
   HttpParams,
 } from '@angular/common/http';
-import { User } from '../shared/User';
+import {
+  User,
+  UserCompleteDetails,
+  UserPersonalDetails,
+  UserSkills,
+  UserExperience,
+  UserEducation,
+} from '../shared/User';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, map, mergeMap } from 'rxjs/operators';
 import { Category } from '../shared/Category';
 import { Job, JobDetail } from '../shared/Job';
 import { Proposal } from '../shared/Proposal';
-import { ThrowStmt } from '@angular/compiler';
+import { Service } from '../shared/Service';
+import { Address } from 'ngx-google-places-autocomplete/objects/address';
 @Injectable({
   providedIn: 'root',
 })
 export class UtilService {
   baseUrl = 'https://marketplacev1.herokuapp.com';
+  apiKey = 'AIzaSyC8aIKLtCcXqEHG_Gfm35Iahplw3HoKzLM';
   user = new BehaviorSubject(null);
   loading = new BehaviorSubject(false);
   constructor(private http: HttpClient) {
@@ -98,6 +107,15 @@ export class UtilService {
       .post(`${this.baseUrl}/api/v1/job/create-job`, params, options)
       .pipe(catchError(this.handleHttpError));
   }
+  createService(params: Service): Observable<any> {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .post(`${this.baseUrl}/api/v1/service/create-service`, params, options)
+      .pipe(catchError(this.handleHttpError));
+  }
   getCategories(): Observable<Category[]> {
     return this.http
       .get<Category[]>(`${this.baseUrl}/api/v1/category`)
@@ -148,7 +166,11 @@ export class UtilService {
               categoryId: item.categoryid,
               ownerFirstName: item.ownerFirstName,
               ownerLastName: item.ownerLastName,
-
+              country: item.country,
+              city: item.city,
+              address: item.address,
+              longitude: item.longitude,
+              latitude: item.latitude,
               showAttachment: item.showattachment,
               jobSkills: item.jobSkills,
             });
@@ -196,6 +218,25 @@ export class UtilService {
       )
       .pipe(catchError(this.handleHttpError));
   }
+  getUserProfile(): Observable<UserCompleteDetails> {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .get<UserCompleteDetails>(`${this.baseUrl}/api/v1/user/profile`, options)
+      .pipe(map((response) => response['data']))
+      .pipe(catchError(this.handleHttpError));
+  }
+  geocodeAddress(address: Address): Observable<Address> {
+    return this.http
+      .get<Address>(
+        `https://maps.googleapis.com/maps/api/geocode/json?key=${this.apiKey}&place_id=${address.place_id}`
+      )
+      .pipe(catchError(this.handleHttpError))
+      .pipe(map((data) => data['results']))
+      .pipe(map((data) => data[0]));
+  }
   getUserJobandProposals(): Observable<JobDetail[] | JobDetail> {
     let headers = new HttpHeaders({
       authorization: this.getToken(),
@@ -226,7 +267,11 @@ export class UtilService {
               categoryId: item.categoryid,
               ownerFirstName: item.ownerFirstName,
               ownerLastName: item.ownerLastName,
-
+              country: item.country,
+              city: item.city,
+              longitude: item.longitude,
+              latitude: item.latitude,
+              address: item.address,
               showAttachment: item.showattachment,
               jobSkills: item.jobSkills,
               proposals: item.proposals,
@@ -236,6 +281,50 @@ export class UtilService {
           return jobs;
         })
       )
+      .pipe(catchError(this.handleHttpError));
+  }
+  updatedPersonalInfo(params: UserPersonalDetails): Observable<any> {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .patch(`${this.baseUrl}/api/v1/user/edit/details`, params, options)
+      .pipe(catchError(this.handleHttpError));
+  }
+  updateUserSkills(params: UserSkills[]) {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .patch(`${this.baseUrl}/api/v1/user/edit/skills`, params, options)
+      .pipe(catchError(this.handleHttpError));
+  }
+  updateUserExperience(params: UserExperience[]) {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .patch(`${this.baseUrl}/api/v1/user/edit/experience`, params, options)
+      .pipe(catchError(this.handleHttpError));
+  }
+  updateUserEducation(params: UserEducation[]) {
+    let headers = new HttpHeaders({
+      authorization: this.getToken(),
+    });
+    let options = { headers: headers };
+    return this.http
+      .patch(`${this.baseUrl}/api/v1/user/edit/education`, params, options)
+      .pipe(catchError(this.handleHttpError));
+  }
+  getUserInfoById(userId: string): Observable<UserCompleteDetails> {
+    return this.http
+      .get<UserCompleteDetails>(
+        `${this.baseUrl}/api/v1/user/get-user-info/${userId}`
+      )
+      .pipe(map((response) => response['data']))
       .pipe(catchError(this.handleHttpError));
   }
   handleHttpError(error: HttpErrorResponse) {

@@ -3,12 +3,12 @@
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8 col-xl-6 float-left">
       <div class="wt-dashboardbox">
         <div class="wt-dashboardboxtitle">
-          <h2>Post a Job</h2>
+          <h2>Post a Service</h2>
         </div>
         <div class="wt-dashboardboxcontent">
           <div class="wt-jobdescription wt-tabsinfo">
             <div class="wt-tabscontenttitle">
-              <h2>Job Description</h2>
+              <h2>Service Description</h2>
             </div>
             <form
               [formGroup]="jobForm"
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group form-group-half wt-formwithlabel">
                   <span class="wt-select">
-                    <label for="selectoption">Job Type:</label>
+                    <label for="selectoption">Service Type:</label>
                     <select name="type" formControlName="type">
                       <option value="Per Hour">Per Hour</option>
                       <option value="Fixed">Fixed</option>
@@ -44,23 +44,10 @@
                 </div>
                 <div class="form-group form-group-half wt-formwithlabel">
                   <span class="wt-select">
-                    <label for="selectoption">Job Duration:</label>
+                    <label for="selectoption">Service Duration:</label>
                     <select name="duration" formControlName="duration">
                       <option value="02 Weeks">02 Weeks</option>
                       <option value="03 Weeks">03 Weeks</option>
-                    </select>
-                  </span>
-                </div>
-                <div class="form-group form-group-half wt-formwithlabel">
-                  <span class="wt-select">
-                    <label for="selectoption">Featured Job:</label>
-                    <select
-                      name="featured"
-                      formControlName="featured"
-                      id="selectoption"
-                    >
-                      <option value="Yes">Yes</option>
-                      <option value="No">No</option>
                     </select>
                   </span>
                 </div>
@@ -69,7 +56,7 @@
           </div>
           <div class="wt-jobdescription wt-tabsinfo">
             <div class="wt-tabscontenttitle">
-              <h2>Job Category</h2>
+              <h2>Service Category</h2>
             </div>
             <form
               [formGroup]="jobForm"
@@ -97,7 +84,7 @@
 
           <div class="wt-jobdetails wt-tabsinfo">
             <div class="wt-tabscontenttitle">
-              <h2>Job Details</h2>
+              <h2>Service Details</h2>
             </div>
             <form
               [formGroup]="jobForm"
@@ -112,12 +99,81 @@
                     class="wt-tinymceeditor w-100"
                     placeholder="Add Job Detail Here"
                   ></textarea> -->
-                  <editor apiKey="test" [init]="{ plugins: 'link' }"></editor>
+                  <!-- <editor [(ngModel)]="dataModel"></editor> -->
+                  <editor
+                    formControlName="details"
+                    apiKey="k90umtx3945eb9gcxyq39jifjvi1xbn7hiycvor65cu6vdew"
+                    [init]="{ plugins: 'link' }"
+                  ></editor>
                 </div>
               </fieldset>
             </form>
           </div>
-          <div class="wt-jobskills wt-tabsinfo">
+          <div class="wt-location wt-tabsinfo my-3">
+            <div class="wt-tabscontenttitle">
+              <h2>Service Location</h2>
+            </div>
+            <form [formGroup]="jobForm" class="wt-formtheme wt-userform">
+              <fieldset>
+                <div style="width: 30%" class="form-group form-group-half">
+                  <span class="wt-select">
+                    <select name="country" formControlName="country">
+                      <option value="" disabled="">Select</option>
+                      <option value="United States" disabled="">
+                        United States
+                      </option>
+                      <option value="China" disabled="">China</option>
+                      <option value="Nigeria">Nigeria</option>
+                    </select>
+                  </span>
+                </div>
+                <div style="width: 70%" class="form-group form-group-half">
+                  <!-- <input
+                    name="address"
+                    class="form-control"
+                    formControlName="address"
+                    placeholder="Your Address"
+                    ngx-google-places-autocomplete
+                    #addressText
+                    (onAddressChange)="handleAddressChange($event)"
+                  /> -->
+                  <input
+                    ngx-google-places-autocomplete
+                    class="form-control"
+                    [options]="options"
+                    (onAddressChange)="AddressChange($event)"
+                  />
+                </div>
+                <div class="form-group wt-formmap">
+                  <div #map id="wt-locationmap" class="wt-locationmap"></div>
+                </div>
+                <div class="form-group form-group-half">
+                  <input
+                    type="text"
+                    name="longitude"
+                    class="form-control"
+                    formControlName="longitude"
+                    placeholder="Enter Longitude (Optional)"
+                  />
+                </div>
+                <div class="form-group form-group-half">
+                  <input
+                    type="text"
+                    name="text"
+                    class="form-control"
+                    formControlName="latitude"
+                    placeholder="Enter Latitude (Optional)"
+                  />
+                </div>
+                <div class="form-group">
+                  <button (click)="getCoordinates()" class="wt-btn my-2">
+                    Get Coordinate
+                  </button>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+          <!-- <div class="wt-jobskills wt-tabsinfo">
             <div class="wt-tabscontenttitle">
               <h2>Skills Required</h2>
             </div>
@@ -200,10 +256,13 @@
                         class="form-group form-group-half"
                       >
                         <input
-                          ngx-google-places-autocomplete
+                          name="address"
                           class="form-control"
-                          [options]="options"
-                          (onAddressChange)="AddressChange($event)"
+                          formControlName="address"
+                          placeholder="Your Address"
+                          ngx-google-places-autocomplete
+                          #placesRef="ngx-places"
+                          (onAddressChange)="handleAddressChange($event)"
                         />
                       </div>
                       <div class="form-group wt-formmap">
@@ -241,7 +300,7 @@
                 </div>
               </fieldset>
             </form>
-          </div>
+          </div> -->
           <div class="wt-attachmentsholder">
             <div class="wt-tabscontenttitle">
               <h2>Attachments</h2>
@@ -313,10 +372,85 @@
       </div>
       <div class="wt-updatall">
         <i class="ti-announcement"></i>
-        <span>Post job by just clicking on “Post Job Now” button.</span>
+        <span>Post Service by just clicking on “Post Now” button.</span>
         <a (click)="postJob()" class="wt-btn" href="javascript:void(0);"
-          >Post Job Now</a
+          >Post Now</a
         >
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-6 float-rght">
+      <div
+        style="background-color: #fff"
+        class="wt-dashboardboxcontent wt-categoriescontentholder"
+      >
+        <table class="wt-tablecategories">
+          <thead>
+            <tr>
+              <th>
+                <span class="wt-checkbox">
+                  <input id="wt-name" type="checkbox" name="head" />
+                  <label for="wt-name"></label>
+                </span>
+              </th>
+              <th>Icon</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let category of categories">
+              <td>
+                <span class="wt-checkbox">
+                  <input id="{{ category.id }}" type="checkbox" name="head" />
+                  <label for="{{ category.id }}"></label>
+                </span>
+              </td>
+              <td>
+                <figure>
+                  <img
+                    src="assets/images/categories/img-09.png"
+                    alt="img description"
+                  />
+                </figure>
+              </td>
+              <td>{{ category.name }}</td>
+              <td>{{ category.description }}</td>
+              <td>
+                <div class="wt-actionbtn">
+                  <a
+                    href="javascript:void(0);"
+                    class="wt-addinfo wt-skillsaddinfo"
+                    ><i class="lnr lnr-pencil"></i
+                  ></a>
+                  <a href="javascript:void(0);" class="wt-deleteinfo"
+                    ><i class="lnr lnr-trash"></i
+                  ></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <nav class="wt-pagination">
+          <ul>
+            <li class="wt-prevpage">
+              <a href="javascrip:void(0);"
+                ><i class="lnr lnr-chevron-left"></i
+              ></a>
+            </li>
+            <li><a href="javascrip:void(0);">1</a></li>
+            <li><a href="javascrip:void(0);">2</a></li>
+            <li><a href="javascrip:void(0);">3</a></li>
+            <li><a href="javascrip:void(0);">4</a></li>
+            <li><a href="javascrip:void(0);">...</a></li>
+            <li><a href="javascrip:void(0);">50</a></li>
+            <li class="wt-nextpage">
+              <a href="javascrip:void(0);"
+                ><i class="lnr lnr-chevron-right"></i
+              ></a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </div>
   </div>

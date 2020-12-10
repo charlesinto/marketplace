@@ -10,4 +10,8 @@ export interface Proposal {
   onwerfirstname?: string;
   status?: string;
   ownerlastname?: string;
+  date_hired?: Date;
+  date_completed?: Date;
+  date_client_accepted?: Date;
+  date_cancelled?: Date;
 }

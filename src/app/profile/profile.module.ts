@@ -11,6 +11,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CategoryListResolver } from '../resolvers/category-list.resolver';
 import { UserProposalsComponent } from './user-proposals/user-proposals.component';
+// import { GoogleMapsModule } from '@angular/google-maps';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
+import { ServicesComponent } from './services/services.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 @NgModule({
   declarations: [
@@ -20,12 +24,19 @@ import { UserProposalsComponent } from './user-proposals/user-proposals.componen
     PostJobComponent,
     CategoryComponent,
     UserProposalsComponent,
+    ServicesComponent,
   ],
   imports: [
     CommonModule,
     ProfileRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    GooglePlaceModule,
+    EditorModule,
+    // GoogleMapsModule
+    // AgmCoreModule.forRoot({
+    //   apiKey: 'AIzaSyC8aIKLtCcXqEHG_Gfm35Iahplw3HoKzLM',
+    // }),
     // NgMultiSelectDropDownModule.forRoot(),
   ],
   providers: [CategoryListResolver],

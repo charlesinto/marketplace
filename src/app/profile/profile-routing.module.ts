@@ -7,6 +7,8 @@ import { PostJobComponent } from './post-job/post-job.component';
 import { CategoryComponent } from './category/category.component';
 import { CategoryListResolver } from '../resolvers/category-list.resolver';
 import { UserProposalsComponent } from './user-proposals/user-proposals.component';
+import { DashboardProfileGuard } from './guards/dashboard-profile.guard';
+import { ServicesComponent } from './services/services.component';
 const routes: Routes = [
   {
     path: '',
@@ -16,12 +18,18 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         pathMatch: 'full',
+        canDeactivate: [DashboardProfileGuard],
       },
       {
         path: 'post-job',
         component: PostJobComponent,
         pathMatch: 'full',
         // resolve: { categories: CategoryListResolver },
+      },
+      {
+        path: 'services',
+        component: ServicesComponent,
+        pathMatch: 'full',
       },
       {
         path: 'proposals',

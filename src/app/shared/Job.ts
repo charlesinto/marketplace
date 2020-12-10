@@ -37,6 +37,11 @@ export interface JobDetail {
   showAttachment: number;
   jobSkills?: JobSkills[];
   proposals?: Proposal[];
+  country?: string;
+  address?: string;
+  city?: string;
+  latitude?: string;
+  longitude?: string;
 }
 
 export interface JobSkills {

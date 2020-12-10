@@ -17,6 +17,7 @@ import { SimpleLoaderComponent } from './simple-loader/simple-loader.component';
 import { JQ_TOKEN } from './services/jquery.service';
 import { UtilService } from './services/util.service';
 import { JobDetailResolver } from './resolvers/job-detail.resolver';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 let jQuery = window['$'];
@@ -30,6 +31,7 @@ let jQuery = window['$'];
     FooterComponent,
     LoginComponent,
     SimpleLoaderComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

@@ -5,6 +5,9 @@ import {
   ViewChild,
   ElementRef,
   AfterViewInit,
+  Input,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Category } from 'src/app/shared/Category';
@@ -15,15 +18,21 @@ import { Job } from '../../shared/Job';
 import { UtilService } from 'src/app/services/util.service';
 import { GooglePlaceDirective } from 'ngx-google-places-autocomplete';
 import { Address } from 'ngx-google-places-autocomplete/objects/address';
+import { ThrowStmt } from '@angular/compiler';
 import { LatLng } from 'ngx-google-places-autocomplete/objects/latLng';
+import { Service } from '../../shared/Service';
 
 @Component({
-  selector: 'app-post-job',
-  templateUrl: './post-job.component.html',
-  styleUrls: ['./post-job.component.scss'],
+  selector: 'app-services',
+  templateUrl: './services.component.html',
+
+  styleUrls: ['./services.component.scss'],
 })
-export class PostJobComponent implements OnInit, AfterViewInit {
+export class ServicesComponent implements OnInit, AfterViewInit {
   categories: Category[] = [];
+  @Input() addressType: string;
+  // autocompleteInput: string;
+  @Output() setAddress: EventEmitter<any> = new EventEmitter();
 
   jobForm: FormGroup = new FormGroup({
     title: new FormControl(''),
@@ -42,11 +51,11 @@ export class PostJobComponent implements OnInit, AfterViewInit {
   });
   lat = 51.678418;
   lng = 7.809007;
-
+  dataModel: any;
   map: google.maps.Map;
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
-  @ViewChild('placesRef') placesRef: GooglePlaceDirective;
+  // @ViewChild('addressText') placesRef: ElementRef;
   showAttachment: boolean = false;
   skills: { name: string; value: string }[] = [
     { name: 'PHP', value: 'PHP' },
@@ -87,8 +96,41 @@ export class PostJobComponent implements OnInit, AfterViewInit {
     // console.log(this.$);
     // this.$('.chosen-select.Skills').select2();
   }
+
+  public AddressChange(address: Address) {
+    console.log(address);
+    this.utilService.isLoading();
+    this.utilService.geocodeAddress(address).subscribe(
+      (data) => {
+        this.utilService.stopLoading();
+        this.jobForm.patchValue({
+          latitude: data.geometry.location.lat,
+          longitude: data.geometry.location.lng,
+          city: address.vicinity,
+          address: address.formatted_address,
+        });
+        const latlng: LatLng = data.geometry.location;
+        const mapOptions: google.maps.MapOptions = {
+          center: latlng,
+          zoom: 16,
+          fullscreenControl: false,
+          mapTypeControl: false,
+          streetViewControl: false,
+        };
+        this.map = new google.maps.Map(
+          this.mapElement.nativeElement,
+          mapOptions
+        );
+      },
+      (error) => {
+        this.utilService.stopLoading();
+        console.log(error);
+      }
+    );
+  }
   ngAfterViewInit() {
     this.initializeMap();
+    // this.getPlaceAutocomplete();
   }
   getCoordinates() {
     if (navigator.geolocation) {
@@ -155,46 +197,14 @@ export class PostJobComponent implements OnInit, AfterViewInit {
   toggleEditable(event) {
     this.showAttachment = event.target.checked ? true : false;
   }
-  public AddressChange(address: Address) {
-    console.log(address);
-    this.utilService.isLoading();
-    this.utilService.geocodeAddress(address).subscribe(
-      (data) => {
-        this.utilService.stopLoading();
-        this.jobForm.patchValue({
-          latitude: data.geometry.location.lat,
-          longitude: data.geometry.location.lng,
-          city: address.vicinity,
-          address: address.formatted_address,
-        });
-        const latlng: LatLng = data.geometry.location;
-        const mapOptions: google.maps.MapOptions = {
-          center: latlng,
-          zoom: 16,
-          fullscreenControl: false,
-          mapTypeControl: false,
-          streetViewControl: false,
-        };
-        this.map = new google.maps.Map(
-          this.mapElement.nativeElement,
-          mapOptions
-        );
-      },
-      (error) => {
-        this.utilService.stopLoading();
-        console.log(error);
-      }
-    );
-  }
   postJob() {
     try {
       if (this.jobForm.value['categoryId'] === '') return;
-      const params: Job = this.jobForm.value;
-      params.skills = this.userSkills;
+      const params: Service = this.jobForm.value;
       params.showAttachment = this.showAttachment ? 1 : 0;
+      console.log('Params: ', params);
       this.utilService.isLoading();
-
-      this.utilService.createJob(params).subscribe(
+      this.utilService.createService(params).subscribe(
         (data) => {
           this.utilService.stopLoading();
           alert('success');
@@ -205,6 +215,7 @@ export class PostJobComponent implements OnInit, AfterViewInit {
           console.log(error);
         }
       );
+      // console.log(this.dataModel);
     } catch (error) {
       console.error(error);
     }

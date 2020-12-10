@@ -90,8 +90,13 @@
                       <a href="howitworks.html">How It Works</a>
                     </li>
                     <li class="menu-item-has-children page_item_has_children">
-                      <a href="javascript:void(0);">Browse Jobs</a>
-                      <ul class="sub-menu">
+                      <a
+                        [routerLink]="['/job/job-listing']"
+                        routerLinkActive="router-link-active"
+                        [routerLinkActiveOptions]="{ exact: true }"
+                        >Browse Jobs</a
+                      >
+                      <!-- <ul class="sub-menu">
                         <li>
                           <a href="joblisting.html">Job Listing</a>
                         </li>
@@ -101,7 +106,7 @@
                         <li>
                           <a href="jobproposal.html">Job Proposal</a>
                         </li>
-                      </ul>
+                      </ul> -->
                     </li>
                     <li class="menu-item-has-children page_item_has_children">
                       <a href="javascript:void(0);">View Freelancers</a>

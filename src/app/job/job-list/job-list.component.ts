@@ -10,6 +10,8 @@ import { ThrowStmt } from '@angular/compiler';
 })
 export class JobListComponent implements OnInit {
   jobList: JobDetail[] = [];
+  catgeoyName: string = '';
+  jobDb: JobDetail[] = [];
   constructor(private utilService: UtilService) {}
 
   ngOnInit(): void {
@@ -20,12 +22,22 @@ export class JobListComponent implements OnInit {
     try {
       this.utilService.isLoading();
       this.jobList = await this.getJobListing();
+      this.jobDb = this.jobList;
       console.log(this.jobList);
       this.utilService.stopLoading();
     } catch (error) {
       this.utilService.stopLoading();
       console.log(error);
     }
+  }
+
+  filterByCategory() {
+    console.log('called');
+    const jobs = this.jobDb.filter((item) =>
+      item.categoryname.includes(this.catgeoyName)
+    );
+    console.log(jobs);
+    this.jobList = jobs;
   }
 
   getJobListing(): Promise<JobDetail[]> {
