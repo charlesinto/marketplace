@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UtilService } from 'src/app/services/util.service';
 import { JobDetail } from 'src/app/shared/Job';
 import { ThrowStmt } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-job-list',
@@ -12,16 +13,29 @@ export class JobListComponent implements OnInit {
   jobList: JobDetail[] = [];
   catgeoyName: string = '';
   jobDb: JobDetail[] = [];
-  constructor(private utilService: UtilService) {}
+  serviceType: string;
+  location: string;
+  lat: string;
+  lng: string;
+  constructor(
+    private utilService: UtilService,
+    private router: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.getJobs();
+    this.router.queryParams.subscribe((data) => {
+      this.serviceType = data['type'];
+      this.location = data['location'];
+      this.lat = data['lat'];
+      this.lng = data['lng'];
+      this.getJobs(this.serviceType, this.location, this.lat, this.lng);
+    });
   }
 
-  async getJobs() {
+  async getJobs(serviceType = 'all', location = 'all', lat = null, lng = null) {
     try {
       this.utilService.isLoading();
-      this.jobList = await this.getJobListing();
+      this.jobList = await this.getJobListing(serviceType, location, lat, lng);
       this.jobDb = this.jobList;
       console.log(this.jobList);
       this.utilService.stopLoading();
@@ -40,10 +54,16 @@ export class JobListComponent implements OnInit {
     this.jobList = jobs;
   }
 
-  getJobListing(): Promise<JobDetail[]> {
+  getJobListing(
+    serviceType = 'all',
+    location = 'all',
+    lat = null,
+    lng = null
+  ): Promise<JobDetail[]> {
     return new Promise((resolve, reject) => {
-      this.utilService.getJobListing().subscribe(
+      this.utilService.getJobListing(serviceType, location, lat, lng).subscribe(
         (data) => {
+
           resolve(data);
         },
         (error) => {

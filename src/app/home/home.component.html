@@ -36,17 +36,26 @@
           </div>
           <form class="wt-formtheme wt-formbanner">
             <fieldset>
+              <input
+                type="text"
+                name="fullname"
+                style="height: 60px"
+                class="form-control"
+                placeholder="Enter Location"
+                ngx-google-places-autocomplete
+                [options]="options"
+                (onAddressChange)="AddressChange($event)"
+              />
               <div class="form-group">
-                <input
-                  type="text"
-                  name="fullname"
-                  class="form-control"
-                  placeholder="I’m looking for"
-                />
                 <div class="wt-formoptions">
-                  <div class="wt-dropdown">
-                    <span
-                      >In: <em class="selected-search-type">Freelancers </em
+                  <div class="wt-dropdown" style="width: 300px; height: 50px">
+                    <span style="width: 300px"
+                      >Looking for:
+                      <em
+                        id="selected-service"
+                        style="width: 50%"
+                        class="selected-search-type"
+                        >Freelancers </em
                       ><i class="lnr lnr-chevron-down"></i
                     ></span>
                   </div>
@@ -82,8 +91,21 @@
                       />
                       <label for="wt-company">Companies</label>
                     </span>
+                    <span class="wt-radio">
+                      <input
+                        id="wt-services"
+                        data-title="Services"
+                        type="radio"
+                        name="searchtype"
+                        value="job"
+                      />
+                      <label for="wt-services">Services</label>
+                    </span>
                   </div>
-                  <a href="userlisting.html" class="wt-searchbtn"
+                  <a
+                    (click)="handleSearch()"
+                    style="cursor: pointer"
+                    class="wt-searchbtn"
                     ><i class="lnr lnr-magnifier"></i
                   ></a>
                 </div>

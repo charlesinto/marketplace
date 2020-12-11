@@ -140,9 +140,16 @@ export class UtilService {
       )
       .pipe(catchError(this.handleHttpError));
   }
-  getJobListing(): Observable<JobDetail[]> {
+  getJobListing(
+    serviceType = 'all',
+    location = 'all',
+    lat = null,
+    lng = null
+  ): Observable<JobDetail[]> {
     return this.http
-      .get(`${this.baseUrl}/api/v1/job/job-listing`)
+      .get(
+        `${this.baseUrl}/api/v1/job/job-listing?serviceType=${serviceType}&location=${location}&lat=${lat}&lng=${lng}`
+      )
       .pipe(catchError(this.handleHttpError))
       .pipe(
         map((response) => {

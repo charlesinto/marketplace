@@ -19,6 +19,7 @@ import { UtilService } from './services/util.service';
 import { JobDetailResolver } from './resolvers/job-detail.resolver';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 // import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { GooglePlaceModule } from 'ngx-google-places-autocomplete';
 
 let jQuery = window['$'];
 
@@ -39,6 +40,7 @@ let jQuery = window['$'];
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    GooglePlaceModule,
     // NgMultiSelectDropDownModule.forRoot(),
   ],
 

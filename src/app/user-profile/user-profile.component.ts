@@ -23,6 +23,8 @@ export class UserProfileComponent implements OnInit {
         (data) => {
           this.utilService.stopLoading();
           this.userInfo = data;
+          this.userInfo.userExperience;
+          this.userInfo.userEducation;
         },
         (error) => {
           this.utilService.stopLoading();

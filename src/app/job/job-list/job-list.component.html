@@ -537,6 +537,11 @@
                     >01 - 48 of 57143 results for <em>"PHP Developer"</em></span
                   >
                 </div> -->
+                <div class="wt-userlistingtitle">
+                  <span
+                    > <em>"{{serviceType}} in {{location}}"</em></span
+                  >
+                </div>
                 <div class="wt-filterholder">
                   <ul class="wt-filtertag">
                     <li class="wt-filtertagclear">
@@ -613,8 +618,8 @@
                         </h2>
                       </div>
                       <div class="wt-description">
-                        <p>
-                          {{ job.details }}
+                        <p innerHTML="{{job.details}}">
+                          <!-- {{ job.details }} -->
                         </p>
                       </div>
                       <div class="wt-tag wt-widgettag">
@@ -658,7 +663,13 @@
                         </li>
                         <li>
                           <span
-                            ><i class="fa fa-tag wt-viewjobtag"></i>Job ID:
+                            *ngIf="serviceType === 'Jobs'"
+                            ><i  class="fa fa-tag wt-viewjobtag"></i>Job ID:
+                            {{ job.id }}</span
+                          >
+                          <span
+                            *ngIf="serviceType === 'Services'"
+                            ><i  class="fa fa-tag wt-viewjobtag"></i>Service ID:
                             {{ job.id }}</span
                           >
                         </li>
@@ -669,6 +680,8 @@
                         </li>
                         <li class="wt-btnarea">
                           <a
+                             
+                             *ngIf="serviceType === 'Job'"
                             [routerLink]="['../view-job', job.id]"
                             [state]="job"
                             [routerLinkActiveOptions]="{ exact: true }"
@@ -677,6 +690,21 @@
                             class="wt-btn"
                             >View Job</a
                           >
+                          <button
+                             *ngIf="serviceType === 'Services'"
+                            class="wt-btn"
+                            >Buy</button
+                          >
+                          <!-- <a
+                             *ngSwitchCase="Jobs"
+                            [routerLink]="['../view-job', job.id]"
+                            [state]="job"
+                            [routerLinkActiveOptions]="{ exact: true }"
+                            routerLinkActive="router-link-active"
+                            href="userlisting.html"
+                            class="wt-btn"
+                            >View Job</a
+                          > -->
                         </li>
                       </ul>
                     </div>
